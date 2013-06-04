@@ -1,0 +1,6 @@
+./manifests/*
+!manifests/README
+modules/apt
+modules/concat
+modules/mysql
+modules/stdlib

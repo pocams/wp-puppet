@@ -1,0 +1,13 @@
+This directory should be populated with a site.pp for your site.  Sample to get started:
+
+node default {
+  class {'wphost':
+    mysql_root_password => 'mymysqlrootpassword'
+  }
+
+  wphost::vhost { "example.com":
+    username => "example",
+    password => 'examplepassword'
+  }
+
+}

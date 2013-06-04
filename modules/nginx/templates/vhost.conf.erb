@@ -1,0 +1,26 @@
+server {
+    listen       <%= @listen %>;
+    server_name  <%= @hostname %>;
+    root         /home/<%= @username %>/www;
+
+    access_log  /home/<%= @username %>/logs/access.log combined;
+
+    include restrictions.conf;
+
+    location / {
+        try_files $uri $uri/ /index.php?$args;
+    }
+
+    rewrite /wp-admin$ $scheme://$host$uri/ permanent;
+
+    location ~ \.php$ {
+        access_log  /home/<%= @username %>/logs/php.log combined;
+        try_files $uri =404;
+        fastcgi_split_path_info ^(.+\.php)(/.+)$;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME /www/$fastcgi_script_name;
+        fastcgi_pass unix:<%= scope['fpm::socket_path'] %>/<%= @hostname %>;
+    }
+
+}
+

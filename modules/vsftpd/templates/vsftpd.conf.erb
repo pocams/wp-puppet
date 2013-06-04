@@ -1,0 +1,24 @@
+listen=YES
+anonymous_enable=NO
+local_enable=YES
+write_enable=YES
+check_shell=NO
+local_umask=027
+hide_ids=YES
+idle_session_timeout=28800
+nopriv_user=ftpnopriv
+ftpd_banner=FTP service ready
+chroot_local_user=YES
+ls_recurse_enable=YES
+
+secure_chroot_dir=/var/run/vsftpd/empty
+pam_service_name=vsftpd
+
+userlist_enable=YES
+userlist_deny=NO
+userlist_file=<%= @allowed_users_file %>
+
+pasv_min_port=49152
+pasv_max_port=65535
+pasv_address=test.mhj.ca
+pasv_addr_resolve=YES
