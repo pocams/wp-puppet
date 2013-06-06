@@ -2,7 +2,7 @@ define fpm::vhost ($hostname = $title,
                    $username,
                    $slowlog_timeout = '5s',
                    $max_children = 4,
-                   $start_servers = 2,
+                   $start_servers = 1,
                    $min_spare_servers = 1,
                    $max_spare_servers = 3) {
 
