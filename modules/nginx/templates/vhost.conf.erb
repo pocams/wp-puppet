@@ -1,6 +1,6 @@
 server {
     listen       <%= @listen %>;
-    server_name  <%= @hostname %>;
+    server_name  <%= @server_names.join(" ") %>;
     root         /home/<%= @username %>/www;
 
     access_log  /home/<%= @username %>/logs/access.log combined;

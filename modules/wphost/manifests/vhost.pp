@@ -1,4 +1,4 @@
-define wphost::vhost ($hostname=$title, $username, $password, $wp_lang='', $ensure=present) {
+define wphost::vhost ($hostname=$title, $username, $password, $aliases=[], $wp_lang='', $ensure=present) {
 
   $ensure_dir = $ensure ? {
     absent => absent,
@@ -23,7 +23,8 @@ define wphost::vhost ($hostname=$title, $username, $password, $wp_lang='', $ensu
     ensure => $ensure,
     shell => "/usr/sbin/nologin",
     gid => $username,
-    groups => [ 'sftp-users' ]
+    groups => [ 'sftp-users' ],
+    password => crypt($password, reverse($username))
   }
 
   file { "/home/${username}":
@@ -61,7 +62,8 @@ define wphost::vhost ($hostname=$title, $username, $password, $wp_lang='', $ensu
   }
 
   nginx::vhost { $hostname:
-    username => $username
+    username => $username,
+    aliases => $aliases
   }
 
   mysql::db { $username:
